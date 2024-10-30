@@ -21,7 +21,7 @@ const Cards = () => {
   }, []);
 
   const addNewCard = async () => {
-    const newCard = { text: `Card ${cards.length + 1}`, backColor: 'blue' };
+    const newCard = { text: `Card ${cards.length + 1}`, backColor: 'lightgrey' };
     try {
       const response = await axios.post('/cards', newCard);
       setCards([...cards, response.data]);
