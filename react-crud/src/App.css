@@ -1,0 +1,104 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  width: 200px;
+  height: 130px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cardText {
+  margin: 0;
+  font-size: 1.2em;
+  color: white;
+  background-color: transparent; 
+  border: none;
+  font-size: 16px; 
+  outline: none; 
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+.cardBottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+}
+.deleteBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+.bottomBtns{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
+  width: 100%;
+}
+.colorCircle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid white; /* White border for the circle */
+  bottom: 10px; /* Position circle at the bottom */
+  left: 10px; /* Position circle at the left */
+  cursor: pointer;
+}
+
+.colorPicker {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+}
+
+.colorSwatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white; /* White border for the swatch */
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.colorSwatch:hover {
+  transform: scale(1.2);
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 30px;
+}
+
+.addCard {
+  width: 200px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none; /* No border */
+  background-color: transparent; /* No background */
+  cursor: pointer;
+}
+
+.addCardBtn {
+  font-size: 3rem;
+  color: #898585;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
