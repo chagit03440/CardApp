@@ -6,8 +6,7 @@ const PORT = 5000;
 
 // Sample card data
 let cards = [
-  { id: 1, text: "card1", backColor: "white" },
-  { id: 2, text: "card2", backColor: "red" },
+  { id: 1, text: "card1", backColor: "lightgrey" }
 ];
 
 // Middleware
@@ -58,6 +57,17 @@ app.put('/cards/:id', (req, res) => {
   }
 });
 
+// Update all cards
+app.put('/cards', async(req, res) => {
+  const updatedCards = req.body;
+  try {
+    cards=updatedCards;
+    res.json(updatedCards);
+    res.status(200);
+  } catch (error) {
+    res.status(500).send({ error: 'Error updating card order' });
+  }
+});
 // Delete a card by ID
 app.delete('/cards/:id', (req, res) => {
   const cardIndex = cards.findIndex(c => c.id === parseInt(req.params.id));
