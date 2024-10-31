@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import Card from './Card'; // Assuming you have the Card component in the same folder
 import axios from 'axios';
+import { DndProvider} from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import DraggableCard from './DraggableCard';
 
 const Cards = () => {
   const [cards, setCards] = useState([]);
-
   axios.defaults.baseURL = 'http://localhost:5000';
 
-  const fetchCards = async () => {
-    try {
-      const response = await axios.get('/cards');
-      setCards(response.data); // Update cards with data from the server
-    } catch (error) {
-      console.error('Error fetching cards:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchCards(); 
+    const fetchCards = async () => {
+      try {
+        const response = await axios.get('/cards');
+        setCards(response.data);
+      } catch (error) {
+        console.error('Error fetching cards:', error);
+      }
+    };
+    fetchCards();
   }, []);
 
   const addNewCard = async () => {
@@ -51,22 +51,42 @@ const Cards = () => {
       console.error('Error updating card:', error);
     }
   };
+  const updateCards = async (updatedCards) => {
+    try {
+      await axios.put(`/cards`, updatedCards);
+    } catch (error) {
+      console.error('Error updating cards:', error);
+    }
+  };
+  const moveCard = (fromIndex, toIndex) => {
+    if (fromIndex !== toIndex) { 
+      const updatedCards = Array.from(cards);
+      const [movedCard] = updatedCards.splice(fromIndex, 1);
+      updatedCards.splice(toIndex, 0, movedCard);
+      setCards(updatedCards);
+      updateCards(updatedCards); 
+    }
+  };
+  
 
   return (
-    <div className="cardsContainer">
-      {cards.map((card) => (
-        <Card
-          key={card.id}
-          text={card.text}
-          backgroundColor={card.backColor}
-          onDelete={() => deleteCard(card.id)}
-          onUpdate={(updatedData) => updateCard({ id: card.id, ...updatedData })}
-        />
-      ))}
-      <div className="addCard">
-        <button className="addCardBtn" onClick={addNewCard}>+</button>
+    <DndProvider backend={HTML5Backend}>
+      <div className="cardsContainer">
+        {cards.map((card, index) => (
+          <DraggableCard
+            key={card.id}
+            card={card}
+            index={index}
+            moveCard={moveCard}
+            onDelete={deleteCard}
+            onUpdate={updateCard}
+          />
+        ))}
+        <div className="addCard">
+          <button className="addCardBtn" onClick={addNewCard}>+</button>
+        </div>
       </div>
-    </div>
+    </DndProvider>
   );
 };
 
